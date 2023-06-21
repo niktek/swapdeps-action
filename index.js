@@ -1,16 +1,24 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+import fs from 'fs';
+import { writeFileSync } from 'fs';
 
 try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
-  console.log(process.cwd());
+    console.log(`Passed in package location is ${core.getInput('package-location')}`)
+    const packageLoc = fs.join(core.getInput('package-location'), 'package.json');
+    //check if package.json exists in custom location
+    
+    if (!fs.existsSync(packageLoc)) {
+        throw new Error(`package.json not found at ${packageLoc}`);
+    }
+    const pkg = JSON.parse(fs.readFileSync(packageLoc, 'utf8'));
+    ['dependencies', 'devDependencies', 'peerDependencies'].forEach((depType) => {
+        if (pkg?.deployConfig[depType] != undefined) {
+            for (const [dep, version] of Object.entries(pkg?.deployConfig[depType])) {
+                pkg[depType][dep] = version;
+            }
+        }
+    });
 } catch (error) {
-  core.setFailed(error.message);
+    core.setFailed(error.message);
 }

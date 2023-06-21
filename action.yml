@@ -1,13 +1,10 @@
 name: 'swapdeps'
-description: 'For building a disconnected repo that was working in a monorepo'
+description: 'Swaps deps from workspace refs to versioned references'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
-outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  package-location:  # id of input
+    description: 'Where to read the package.json from'
+    required: false
+    default: './'
 runs:
   using: 'node16'
   main: 'index.js'
