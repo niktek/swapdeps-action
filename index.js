@@ -1,9 +1,10 @@
 import { getInput, setFailed } from '@actions/core';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { resolve, join } from 'path';
+const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 try {
-    const packageLoc = process.cwd() +  '/package.json';
+    const packageLoc = join(GITHUB_WORKSPACE, getInput('package-location'), 'package.json');
     //check if package.json exists in custom location
     console.log(`Checking if package.json exists at ${packageLoc}`)
     if (!existsSync(packageLoc)) {
@@ -18,6 +19,7 @@ try {
         }
     });
     writeFileSync(packageLoc, JSON.stringify(pkg, null, 2));
+    console.log(JSON.stringify(pkg, null, 2));
 } catch (error) {
     setFailed(error.message);
 }
