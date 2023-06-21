@@ -4,7 +4,7 @@ import { resolve, join } from 'path';
 const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 try {
-    const packageLoc = join(GITHUB_WORKSPACE, getInput('package-location'), 'package.json');
+    const packageLoc = resolve(GITHUB_WORKSPACE, getInput('package-location'), 'package.json');
     //check if package.json exists in custom location
     console.log(`Checking if package.json exists at ${packageLoc}`)
     if (!existsSync(packageLoc)) {

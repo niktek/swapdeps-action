@@ -2801,15 +2801,16 @@ var __webpack_exports__ = {};
 
 
 
+const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 try {
-    const packageLoc = __nccwpck_require__.ab + "package.json";
+    const packageLoc = __nccwpck_require__.ab + "swapdeps-action/" + GITHUB_WORKSPACE + '/' + (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('package-location') + '/package.json';
     //check if package.json exists in custom location
     console.log(`Checking if package.json exists at ${packageLoc}`)
-    if (!(0,fs__WEBPACK_IMPORTED_MODULE_1__.existsSync)(__nccwpck_require__.ab + "package.json")) {
+    if (!(0,fs__WEBPACK_IMPORTED_MODULE_1__.existsSync)(packageLoc)) {
         throw new Error(`package.json not found at ${packageLoc}`);
     }
-    const pkg = JSON.parse((0,fs__WEBPACK_IMPORTED_MODULE_1__.readFileSync)(__nccwpck_require__.ab + "package.json", 'utf8'));
+    const pkg = JSON.parse((0,fs__WEBPACK_IMPORTED_MODULE_1__.readFileSync)(packageLoc, 'utf8'));
     ['dependencies', 'devDependencies', 'peerDependencies'].forEach((depType) => {
         if (pkg?.deployConfig[depType] != undefined) {
             for (const [dep, version] of Object.entries(pkg?.deployConfig[depType])) {
@@ -2817,7 +2818,8 @@ try {
             }
         }
     });
-    (0,fs__WEBPACK_IMPORTED_MODULE_1__.writeFileSync)(__nccwpck_require__.ab + "package.json", JSON.stringify(pkg, null, 2));
+    (0,fs__WEBPACK_IMPORTED_MODULE_1__.writeFileSync)(packageLoc, JSON.stringify(pkg, null, 2));
+    console.log(JSON.stringify(pkg, null, 2));
 } catch (error) {
     (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed)(error.message);
 }
