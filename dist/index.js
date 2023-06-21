@@ -2797,14 +2797,12 @@ var __webpack_exports__ = {};
 (() => {
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(733);
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(147);
-/* harmony import */ var path__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(17);
-
 
 
 const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 try {
-    const packageLoc = __nccwpck_require__.ab + "swapdeps-action/" + GITHUB_WORKSPACE + '/' + (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('package-location') + '/package.json';
+    const packageLoc = GITHUB_WORKSPACE + (0,_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput)('package-location') + 'package.json';
     //check if package.json exists in custom location
     console.log(`Checking if package.json exists at ${packageLoc}`)
     if (!(0,fs__WEBPACK_IMPORTED_MODULE_1__.existsSync)(packageLoc)) {
