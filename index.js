@@ -1,9 +1,9 @@
-import { getInput, setFailed } from '@actions/core';
+import { setFailed } from '@actions/core';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 try {
-    const packageLoc = GITHUB_WORKSPACE + getInput('package-location') + 'package.json';
+    const packageLoc = GITHUB_WORKSPACE + 'package.json';
     //check if package.json exists in custom location
     console.log(`Checking if package.json exists at ${packageLoc}`)
     if (!existsSync(packageLoc)) {
