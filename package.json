@@ -1,17 +1,9 @@
 {
-  "name": "swapdeps",
+  "name": "test-data",
   "version": "0.0.1",
-  "description": "",
-  "main": "bin.mjs",
-  "keywords": [],
+  "description": "dummy file for testing",
   "author": "nik <nik@niktek.io>",
   "license": "MIT",
-  "scripts": {
-    "test": "node bin.mjs"
-  },
-  "bin": {
-    "swapdeps": "./bin.mjs"
-  },
   "dependencies": {
     "@pnpm/find-workspace-dir": "^6.0.2",
     "foo": "workspace:*"
