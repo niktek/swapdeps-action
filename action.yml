@@ -1,10 +1,10 @@
 name: 'swapdeps'
 description: 'Swaps deps from workspace refs to versioned references'
 inputs:
-  package-location:  # id of input
-    description: 'Where to read the package.json from'
+  package-location:
+    description: 'Relative path to read the package.json from'
     required: false
-    default: './'
+    default: '.'
 runs:
   using: 'node16'
-  main: 'dist/index.js'
+  main: 'index.cjs'

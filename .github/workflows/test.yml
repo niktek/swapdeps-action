@@ -1,5 +1,4 @@
 on: [push]
-
 jobs:
   test_swapdeps:
     runs-on: ubuntu-latest

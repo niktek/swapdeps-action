@@ -1,11 +1,16 @@
-import { setFailed } from '@actions/core';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
+const setFailed = require('@actions/core').setFailed;
+const getInput = require('@actions/core').getInput;
+const existsSync = require('fs').existsSync;
+const readFileSync = require('fs').readFileSync;
+const writeFileSync = require('fs').writeFileSync;
+const resolve = require('path').resolve;
 const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 try {
-    const packageLoc = GITHUB_WORKSPACE + '/package.json';
-    //check if package.json exists in custom location
-    console.log(`Checking if package.json exists at ${packageLoc}`)
+    const packageLoc = resolve(GITHUB_WORKSPACE, getInput('package-location'), './package.json');
+    console.log(packageLoc)
+    // const packageLoc = GITHUB_WORKSPACE + '/package.json';
+    console.log(`Reading package.json from ${packageLoc}`);
     if (!existsSync(packageLoc)) {
         throw new Error(`package.json not found at ${packageLoc}`);
     }
@@ -18,7 +23,6 @@ try {
         }
     });
     writeFileSync(packageLoc, JSON.stringify(pkg, null, 2));
-    console.log(JSON.stringify(pkg, null, 2));
 } catch (error) {
     setFailed(error.message);
 }
