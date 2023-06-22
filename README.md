@@ -1,8 +1,8 @@
 When you want to have detached repositories co-located in a monorepo like the following:
 
-monorepo/packages/mysharedlib   <- part of monorepo>
-monorepo/sites/docsite          <- part of monorepo>
-monorepo/sites/privatesite      <- from separate repo>
+- monorepo/packages/mysharedlib   <- part of monorepo
+- monorepo/sites/docsite          <- part of monorepo
+- monorepo/sites/privatesite      <- from separate repo
 
 When co-located as above, the package.json dependencies in privatesite will have a reference such as "mysharedlib":"workspace:*" which will resolve.  However, when privatesite is checked out in a non co-located situation such as a CI/CD or just external development, this reference will fail to resolve.
 
